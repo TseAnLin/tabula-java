@@ -8,9 +8,9 @@ import technology.tabula.extractors.ExtractionAlgorithm;
 
 @SuppressWarnings("serial")
 public class Table extends Rectangle {
-
+	
 	public static final Table empty() { return new Table(""); }
-
+	/* constructor */
 	private Table(String extractionMethod) {
 		this.extractionMethod = extractionMethod;
 	}
