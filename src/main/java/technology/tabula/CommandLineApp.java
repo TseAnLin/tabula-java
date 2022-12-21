@@ -83,9 +83,10 @@ public class CommandLineApp {
     }
 
     public void extractTables(CommandLine line) throws ParseException {
+        argLen = line.getArgs().length;
         if (line.hasOption('b')) {
     
-            if (line.getArgs().length != 0) {
+            if (argLen != 0) {
                 throw new ParseException("Filename specified with batch\nTry --help for help");
             }
             File pdfDirectory = new File(line.getOptionValue('b'));
@@ -96,7 +97,7 @@ public class CommandLineApp {
             return;
         }
 
-        if (line.getArgs().length != 1) {
+        if (argLen != 1) {
             throw new ParseException("Need exactly one filename\nTry --help for help");
         }
 
