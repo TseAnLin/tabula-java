@@ -61,13 +61,14 @@ public class CommandLineApp {
         CommandLineParser parser = new DefaultParser();
         try {
             // parse the command line arguments
+            
             CommandLine line = parser.parse(buildOptions(), args);
-
+            // display help
             if (line.hasOption('h')) {
                 printHelp();
                 System.exit(0);
             }
-
+            // display version
             if (line.hasOption('v')) {
                 System.out.println(VERSION_STRING);
                 System.exit(0);
@@ -83,10 +84,10 @@ public class CommandLineApp {
 
     public void extractTables(CommandLine line) throws ParseException {
         if (line.hasOption('b')) {
+    
             if (line.getArgs().length != 0) {
                 throw new ParseException("Filename specified with batch\nTry --help for help");
             }
-
             File pdfDirectory = new File(line.getOptionValue('b'));
             if (!pdfDirectory.isDirectory()) {
                 throw new ParseException("Directory does not exist or is not a directory");
