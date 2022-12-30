@@ -79,24 +79,24 @@ public final class CohenSutherlandClipping {
             outsidePoint.region = (point1.region == INSIDE) ? point2.region : point1.region;
 
             if ((outsidePoint.region & LEFT) != 0) {
-                outsidePoint.x = xMin;
-                outsidePoint.y = delta(outsidePoint.x, point1.x)*lineSlope + point1.y;
+
+                setoutsidePointHorizontal(double xMin);
+
             }
             else if ((outsidePoint.region & RIGHT) != 0) {
-                outsidePoint.x = xMax;
-                outsidePoint.y = delta(outsidePoint.x, point1.x)*lineSlope + point1.y;
+
+                setoutsidePointHorizontal(double xMax);
+
             }
             else if ((outsidePoint.region & BOTTOM) != 0) {
-                outsidePoint.y = yMin;
-                outsidePoint.x = lineIsVertical
-                    ? point1.x
-                    : delta(outsidePoint.y, point1.y)/lineSlope + point1.x;
+
+                setoutsidePointVertical(double yMin);
+
             }
             else if ((outsidePoint.region & TOP) != 0) {
-                outsidePoint.y = yMax;
-                outsidePoint.x = lineIsVertical
-                    ? point1.x
-                    : delta(outsidePoint.y, point1.y)/lineSlope + point1.x;
+
+                setoutsidePointVertical(double yMax);
+                
             }
 
             if (outsidePoint.isInTheSameRegionAs(point1)) {
@@ -110,6 +110,14 @@ public final class CohenSutherlandClipping {
         return true;
     }
 
+    private void setoutsidePointHorizontal(double x){
+        outsidePoint.x = x;
+        outsidePoint.y = delta(outsidePoint.x, point1.x)*lineSlope + point1.y;
+    }
+    private void setoutsidePointVertical(double y){
+        outsidePoint.y = y;
+        outsidePoint.x = lineIsVertical? point1.x: delta(outsidePoint.y, point1.y)/lineSlope + point1.x;
+    }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
     private static double delta(double value1, double value2) {
         return (Math.abs(value1 - value2) < MINIMUM_DELTA) ? 0 : (value1 - value2);

@@ -83,9 +83,7 @@ public class Page extends Rectangle {
       this.textElements = characters;
       this.rulings = rulings;
     }
-
    /**
-    *
     * @deprecated use {@link Builder} instead
     */
     public Page(float top, float left, float width, float height, int rotation, int number, PDPage pdPage, PDDocument doc,
@@ -95,11 +93,7 @@ public class Page extends Rectangle {
       this.minCharHeight = textStripper.getMinCharHeight();
       this.spatialIndex = textStripper.getSpatialIndex();
     }
-
-
-
    /**
-    *
     * @deprecated use {@link Builder} instead
     */
     public Page(float top, float left, float width, float height, int rotation, int number, PDPage pdPage, PDDocument doc,

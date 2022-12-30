@@ -1,3 +1,8 @@
+package technology.tabula;
+
+import technology.tabula.extractors.BasicExtractionAlgorithm;
+import technology.tabula.extractors.SpreadsheetExtractionAlgorithm;
+
 private static class TableExtractor {
     private boolean guess = false;
     private boolean useLineReturns = false;

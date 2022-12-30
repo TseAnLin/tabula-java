@@ -131,7 +131,7 @@ public class CommandLineApp {
             extractFile(pdfFile, this.defaultOutput);
             return;
         }
-
+        // create output file
         File outputFile = new File(line.getOptionValue('o'));
         extractFileInto(pdfFile, outputFile);
     }
@@ -211,6 +211,7 @@ public class CommandLineApp {
     // CommandLine parsing methods
 
     private static OutputFormat whichOutputFormat(CommandLine line) throws ParseException {
+        // default out is CSV
         if (!line.hasOption('f')) {
             return OutputFormat.CSV;
         }
@@ -368,7 +369,6 @@ public class CommandLineApp {
 
         return o;
     }
-
     private static class TableExtractor {
         private boolean guess = false;
         private boolean useLineReturns = false;

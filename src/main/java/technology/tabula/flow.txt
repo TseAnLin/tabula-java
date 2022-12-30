@@ -1,0 +1,14 @@
+
+Recrangle.java (if else 73)
+TextElement.java (if else 80)
+
+
+CommandLineApp
+    function extractTables()
+    function extractFileTables()
+    function extractFileInto(File pdfFile, File outputFile)
+    function extractFile(File pdfFile, Appendable outFile){
+        funtion pageIterator() //class
+        getPageIterator (pdfDocument)
+    }
+    
