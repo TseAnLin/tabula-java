@@ -462,18 +462,12 @@ public class CommandLineApp {
 
     private void writeTables(List<Table> tables, Appendable out) throws IOException {
         Writer writer = null;
-        switch (outputFormat) {
-            case CSV:
-                writer = new CSVWriter();
-                break;
-            case JSON:
-                writer = new JSONWriter();
-                break;
-            case TSV:
-                writer = new TSVWriter();
-                break;
-        }
+
+        TableWriter tw = new TableWriter();
+        writer = tw.createTableWriter(outputFormat);
+
         writer.write(out, tables);
+        
     }
 
     private String getOutputFilename(File pdfFile) {

@@ -9,7 +9,7 @@ import java.util.*;
  * @author manuel
  *
  */
-public class SpreadsheetExtractionAlgorithm implements ExtractionAlgorithm {
+public class implements ExtractionAlgorithm {
     
     private static final float MAGIC_HEURISTIC_NUMBER = 0.65f;
     

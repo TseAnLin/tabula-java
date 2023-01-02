@@ -71,66 +71,50 @@ public class ProjectionProfile {
     }
     
     public float[] findVerticalSeparators(float minColumnWidth) {
-        boolean foundNarrower = false;
-
-        List<Integer> verticalSeparators = new ArrayList<>();
-        for (Ruling r: area.getVerticalRulings()) {
-            if (r.length() / this.textBounds.getHeight() >= 0.95) {
-                verticalSeparators.add(toFixed(r.getPosition() - this.areaLeft));
-            }
-        }
-        
-        List<Integer> seps = findSeparatorsFromProjection(filter(getFirstDeriv(this.horizontalProjection), 0.1f));
-        
-        for (Integer foundSep: seps) {
-            for (Integer explicitSep: verticalSeparators) {
-                if (Math.abs(toDouble(foundSep - explicitSep)) <= minColumnWidth) {
-                    foundNarrower = true;
-                    break;
-                } 
-            }
-            if (!foundNarrower) {
-                verticalSeparators.add(foundSep);
-            }
-            foundNarrower = false;
-        }
-        Collections.sort(verticalSeparators);
-        float[] rv = new float[verticalSeparators.size()];
-        for (int i = 0; i < rv.length; i++) {
-            rv[i] = (float) toDouble(verticalSeparators.get(i));
-        }
-        return rv;
+        return findSeparators(minColumnWidth, "Vertical");
     }
     
     public float[] findHorizontalSeparators(float minRowHeight) {
+        return findSeparators(minRowHeight, "Horizontal");
+    }
+
+    public float[] findSeparators(float minRange, String direction) {
         boolean foundShorter = false;
 
-        List<Integer> horizontalSeparators = new ArrayList<>();
-        for (Ruling r: area.getHorizontalRulings()) {
-            System.out.println(r.length() / this.textBounds.getWidth());
+        if(direction=="Horizontal"){
+            List<Ruling> rulings = area.getHorizontalRulings();
+            float start = this.areaTop; 
+            List<Integer> seps = findSeparatorsFromProjection(filter(getFirstDeriv(this.horizontalProjection), 0.1f)); 
+        }
+        else{
+            List<Ruling> rulings = area.getVerticalRulings();
+            float start = this.left;
+            List<Integer> seps = findSeparatorsFromProjection(filter(getFirstDeriv(this.verticalProjection), 0.1f)); 
+        }
+            
+        List<Integer> Separators = new ArrayList<>();
+        for (Ruling r: rulings) {
             if (r.length() / this.textBounds.getWidth() >= 0.95) {
-                horizontalSeparators.add(toFixed(r.getPosition() - this.areaTop));
+                Separators.add(toFixed(r.getPosition() - start));
             }
         }
         
-        List<Integer> seps = findSeparatorsFromProjection(filter(getFirstDeriv(this.verticalProjection), 0.1f));
-        
         for (Integer foundSep: seps) {
-            for (Integer explicitSep: horizontalSeparators) {
-                if (Math.abs(toDouble(foundSep - explicitSep)) <= minRowHeight) {
+            for (Integer explicitSep: Separators) {
+                if (Math.abs(toDouble(foundSep - explicitSep)) <= minRange) {
                     foundShorter = true;
                     break;
                 } 
             }
             if (!foundShorter) {
-                horizontalSeparators.add(foundSep);
+                Separators.add(foundSep);
             }
             foundShorter = false;
         }
-        Collections.sort(horizontalSeparators);
-        float[] rv = new float[horizontalSeparators.size()];
+        Collections.sort(Separators);
+        float[] rv = new float[Separators.size()];
         for (int i = 0; i < rv.length; i++) {
-            rv[i] = (float) toDouble(horizontalSeparators.get(i));
+            rv[i] = (float) toDouble(Separators.get(i));
         }
         return rv;
     }
